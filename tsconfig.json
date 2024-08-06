@@ -1,0 +1,9 @@
+{
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "compilerOptions": {
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
+    }
+}
