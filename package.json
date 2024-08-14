@@ -1,13 +1,25 @@
 {
     "name": "aws-lambda-handler-framework",
     "version": "0.0.0",
-    "description": "",
-    "keywords": [],
+    "description": "A handler framework for AWS Lambda.",
+    "keywords": [
+        "aws",
+        "dependency-injection",
+        "framework",
+        "handler",
+        "lambda",
+        "middleware",
+        "serverless"
+    ],
     "files": [
         "./dist"
     ],
     "type": "module",
-    "exports": "./dist/index.js",
+    "exports": {
+        ".": "./dist/index.js",
+        "./metadata": "./dist/metadata.js",
+        "./dependency-injection": "./dist/dependency-injection.js"
+    },
     "engines": {
         "node": ">=20"
     },
@@ -27,12 +39,17 @@
         "type": "git",
         "url": "git+https://github.com/choi-jack/aws-lambda-handler-framework.git"
     },
+    "dependencies": {
+        "class-metadata": "^0.2.0",
+        "reflective-dependency-injection": "^0.4.3"
+    },
     "devDependencies": {
         "@choi-jack/eslint-config": "^0.2.0",
         "@eslint/js": "^9.8.0",
         "@jest/globals": "^29.7.0",
         "@stylistic/eslint-plugin": "^2.6.1",
         "@tsconfig/node20": "^20.1.4",
+        "@types/aws-lambda": "^8.10.143",
         "@types/eslint__js": "^8.42.3",
         "@types/node": "^20.14.14",
         "conventional-changelog-cli": "^5.0.0",
