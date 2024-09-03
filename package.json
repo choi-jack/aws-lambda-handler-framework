@@ -16,7 +16,7 @@
     ],
     "type": "module",
     "exports": {
-        ".": "./dist/index.js",
+        ".": "./dist/core.js",
         "./metadata": "./dist/metadata.js",
         "./dependency-injection": "./dist/dependency-injection.js"
     },
