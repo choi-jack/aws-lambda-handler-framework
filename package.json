@@ -1,6 +1,6 @@
 {
     "name": "aws-lambda-handler-framework",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "A handler framework for AWS Lambda.",
     "keywords": [
         "aws",
