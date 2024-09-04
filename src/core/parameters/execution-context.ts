@@ -1,6 +1,6 @@
 import { Identifier, Inject, InjectionToken } from 'reflective-dependency-injection';
 
-import { ReflectedHandler } from '../reflection.js';
+import { ReflectedHandler, ReflectedMiddleware } from '../reflection.js';
 import { Context } from './context.js';
 import { Event } from './event.js';
 
@@ -9,6 +9,7 @@ export interface ExecutionContext {
     readonly context: Context;
 
     readonly handler: ReflectedHandler;
+    readonly middlewares: ReadonlyArray<ReflectedMiddleware>;
 
     has(identifier: Identifier): boolean;
     get<T>(identifier: Identifier<T>): null | T;

@@ -90,6 +90,77 @@ export const application: Application = new Application({
 export const handler: EntryPoint = application.createEntryPoint();
 ```
 
+### Middleware
+
+You can use middleware to extend the functionality of your application.
+
+Middleware is executed before and after the handler. It's like an onion structure.
+
+```typescript
+@Middleware()
+class ExampleMiddleware implements Middleware {
+    public async use(
+        @Next()
+        next: Next,
+    ): Promise<unknown> {
+        // before ...
+
+        const result: unknown = await next();
+
+        // after ...
+
+        return result;
+    }
+}
+```
+
+#### Error handling
+
+You can handle errors that occur in handler and middleware with the `try...catch` statement.
+
+```typescript
+@Middleware()
+class ErrorHandlingMiddleware implements Middleware {
+    public async use(
+        @Next()
+        next: Next,
+    ): Promise<unknown> {
+        try {
+            return await next();
+        }
+        catch (error) {
+            // ...
+        }
+    }
+}
+```
+
+#### Early return
+
+If you want to stop the execution flow and return the result immediately, return the result without calling the `next` function.
+
+```typescript
+@Middleware()
+class CacheMiddleware implements Middleware {
+    #cache: unknown;
+
+    public constructor() {
+        this.#cache = null;
+    }
+
+    public async use(
+        @Next()
+        next: Next,
+    ): Promise<unknown> {
+        if (this.#cache !== null) {
+            return this.#cache;
+        }
+
+        return this.#cache = await next();
+    }
+}
+```
+
 ## License
 
 Distributed under the MIT License. See the [LICENSE](https://github.com/choi-jack/aws-lambda-handler-framework/blob/main/LICENSE) file for more details.

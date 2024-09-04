@@ -4,6 +4,9 @@ import { Injectable, Lifetime } from 'reflective-dependency-injection';
 import { Class } from './class.js';
 
 export interface HandlerOptions {
+    /**
+     * @default Lifetime.SINGLETON
+     */
     readonly lifetime?: Lifetime;
 }
 
@@ -17,9 +20,9 @@ export function Handler(options: HandlerOptions = {}): ClassDecorator {
     return MetadataReflector.createDecorator((metadata: Metadata): void => {
         metadata.set(HANDLER_OPTIONS, options);
 
-        const handler: Class<Handler> = metadata.target as Class<Handler>;
+        const clazz: Class<Handler> = metadata.target as Class<Handler>;
 
-        Injectable()(handler);
-        Injectable()(handler.prototype, 'execute', Reflect.getOwnPropertyDescriptor(handler.prototype, 'execute')!);
+        Injectable()(clazz);
+        Injectable()(clazz.prototype, 'execute', Reflect.getOwnPropertyDescriptor(clazz.prototype, 'execute')!);
     });
 }

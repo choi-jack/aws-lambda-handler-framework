@@ -3,8 +3,10 @@ import { Dependency, DependencyReflector } from 'reflective-dependency-injection
 
 import { Class } from '../class.js';
 import { Handler } from '../handler.js';
+import { Middleware } from '../middleware.js';
 import { ReflectedHandler } from './reflected-handler.js';
 import { ReflectedMethod } from './reflected-method.js';
+import { ReflectedMiddleware } from './reflected-middleware.js';
 import { ReflectedParameter } from './reflected-parameter.js';
 
 function reflectMethod(target: object, propertyKey: string): ReflectedMethod {
@@ -27,5 +29,13 @@ export function reflectHandler(type: Class<Handler>): ReflectedHandler {
         type,
         metadata: MetadataReflector.reflect(type),
         executeMethod: reflectMethod(type.prototype, 'execute'),
+    };
+}
+
+export function reflectMiddleware(type: Class<Middleware>): ReflectedMiddleware {
+    return {
+        type,
+        metadata: MetadataReflector.reflect(type),
+        useMethod: reflectMethod(type.prototype, 'use'),
     };
 }

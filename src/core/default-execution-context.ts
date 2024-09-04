@@ -1,19 +1,21 @@
 import { InjectionToken } from 'reflective-dependency-injection';
 
 import { CONTEXT, Context, EVENT, Event, EXECUTION_CONTEXT, ExecutionContext } from './parameters.js';
-import { ReflectedHandler } from './reflection.js';
+import { ReflectedHandler, ReflectedMiddleware } from './reflection.js';
 
 export class DefaultExecutionContext implements ExecutionContext {
-    #map: Map<InjectionToken, unknown>;
+    readonly #map: Map<InjectionToken, unknown>;
 
     public constructor(
         public readonly event: Event,
         public readonly context: Context,
         public readonly handler: ReflectedHandler,
+        public readonly middlewares: ReadonlyArray<ReflectedMiddleware>,
     ) {
         this.#map = new Map();
 
         this.set(EXECUTION_CONTEXT, this);
+
         this.set(EVENT, event);
         this.set(CONTEXT, context);
     }
